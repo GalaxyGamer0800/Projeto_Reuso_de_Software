@@ -8,7 +8,7 @@ Porta Alvo: 8000 (API Gateway)
 import httpx
 from typing import Dict, Any, Optional
 
-GATEWAY_URL = "http://localhost:8000/api"
+GATEWAY_URL = "http://127.0.0.1:8000/api"
 
 
 def buscar_imoveis_tool(cidade: Optional[str] = None) -> Dict[str, Any]:
@@ -19,7 +19,7 @@ def buscar_imoveis_tool(cidade: Optional[str] = None) -> Dict[str, Any]:
     params = {"cidade": cidade} if cidade else {}
 
     try:
-        with httpx.Client(timeout=10.0) as client:
+        with httpx.Client(timeout=5.0) as client:
             response = client.get(url, params=params)
             if response.status_code == 200:
                 return {"sucesso": True, "imoveis": response.json()}
@@ -51,7 +51,7 @@ def criar_reserva_tool(
     }
 
     try:
-        with httpx.Client(timeout=10.0) as client:
+        with httpx.Client(timeout=5.0) as client:
             response = client.post(url, json=payload)
             if response.status_code in (200, 201):
                 return {"sucesso": True, "reserva": response.json()}
@@ -73,7 +73,7 @@ def processar_pagamento_tool(booking_id: int, valor: float, metodo_pagamento: st
     }
 
     try:
-        with httpx.Client(timeout=10.0) as client:
+        with httpx.Client(timeout=5.0) as client:
             response = client.post(url, json=payload)
             if response.status_code in (200, 201):
                 return {"sucesso": True, "pagamento": response.json()}

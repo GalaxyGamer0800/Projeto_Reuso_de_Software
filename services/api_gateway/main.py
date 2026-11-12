@@ -10,9 +10,9 @@ from fastapi import FastAPI, HTTPException, Request, Response
 
 app = FastAPI(title="API Gateway", version="1.0.0")
 
-PROPERTY_SERVICE_URL = "http://localhost:8001"
-BOOKING_SERVICE_URL = "http://localhost:8002"
-PAYMENT_SERVICE_URL = "http://localhost:8003"
+PROPERTY_SERVICE_URL = "http://127.0.0.1:8001"
+BOOKING_SERVICE_URL = "http://127.0.0.1:8002"
+PAYMENT_SERVICE_URL = "http://127.0.0.1:8003"
 
 
 async def forward_request(target_url: str, request: Request) -> Response:
@@ -29,7 +29,7 @@ async def forward_request(target_url: str, request: Request) -> Response:
                 headers=headers,
                 params=request.query_params,
                 content=body,
-                timeout=10.0
+                timeout=5.0
             )
             return Response(
                 content=response.content,

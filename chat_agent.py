@@ -1,25 +1,17 @@
-"""
-Módulo: chat_agent
-Descrição: Interface em linha de comando (CLI) para interação interativa com o Agente de IA.
-Técnica: Interactive CLI / Agent Interface
-"""
-
 import sys
-from rental_agent import RentalAgentEngine
-
+from rental_agent import RentalAgentEngineGemini
 
 def iniciar_chat():
     print("=" * 65)
-    print("       RENTAL FRAMEWORK - ASSISTENTE VIRTUAL DE RESERVAS")
+    print("   RENTAL FRAMEWORK - CHAT COM GOOGLE GEMINI REAL")
     print("=" * 65)
-    print("Digite suas perguntas ou comandos em linguagem natural.")
-    print("Exemplos:")
-    print(" - 'Buscar imóveis em Recife'")
-    print(" - 'Quero reservar o imóvel APT-URB-202'")
-    print(" - 'Efetuar pagamento via PIX'")
-    print("Digite 'sair' para encerrar a sessão.\n")
+    print("Digite suas perguntas. Exemplos:")
+    print(" - 'Quais imóveis tem em Recife?'")
+    print(" - 'Reserve o APT-URB-202 para 5 dias'")
+    print(" - 'Pagar a reserva 1 com PIX'")
+    print("Digite 'sair' para encerrar.\n")
 
-    agent = RentalAgentEngine()
+    agent = RentalAgentEngineGemini()
 
     while True:
         try:
@@ -27,18 +19,16 @@ def iniciar_chat():
             if not user_input:
                 continue
             if user_input.lower() in ["sair", "exit", "quit"]:
-                print("\nEncerrando sessão do assistente. Até logo!")
+                print("\nEncerrando o chat.")
                 break
 
             resposta = agent.processar_mensagem(user_input)
-            print(f"\nAgente IA:\n{resposta}")
+            print(f"\nAgente Gemini:\n{resposta}")
 
         except KeyboardInterrupt:
-            print("\n\nSessão encerrada pelo usuário.")
             sys.exit(0)
         except Exception as e:
-            print(f"\n[ERRO] Falha ao processar mensagem: {str(e)}")
-
+            print(f"\n[ERRO]: {str(e)}")
 
 if __name__ == "__main__":
     iniciar_chat()
